@@ -1,0 +1,199 @@
+# Calculadoras
+
+Estrutura
+atividade-poo-java/
+│
+├── src/
+│   ├── CalculadoraDesconto.java
+│   ├── CalculadoraITBI.java
+│   ├── SistemaAvaliacao.java
+│   ├── CalculadoraAposentadoria.java
+│   ├── CircuitoResistencias.java
+│   ├── SistemaLogin.java
+│   └── GeradorTabuada.java
+│
+└── README.md
+
+Calculadora de Desconto
+import java.util.Scanner;
+
+public class CalculadoraDesconto {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Digite o valor do produto: R$ ");
+        double valor = sc.nextDouble();
+
+        System.out.print("Digite a porcentagem de desconto: ");
+        double desconto = sc.nextDouble();
+
+        double valorDesconto = valor * (desconto / 100);
+        double precoFinal = valor - valorDesconto;
+
+        System.out.printf("Valor do desconto: R$ %.2f%n", valorDesconto);
+        System.out.printf("Preço final do produto: R$ %.2f%n", precoFinal);
+
+        sc.close();
+    }
+}
+
+
+Calculadora de ITBI
+import javax.swing.JOptionPane;
+
+public class CalculadoraITBI {
+    public static void main(String[] args) {
+        double valorTransacao = Double.parseDouble(
+            JOptionPane.showInputDialog("Digite o valor de transação do imóvel:")
+        );
+        double valorVenal = Double.parseDouble(
+            JOptionPane.showInputDialog("Digite o valor venal do imóvel:")
+        );
+        double percentual = Double.parseDouble(
+            JOptionPane.showInputDialog("Digite a porcentagem do ITBI:")
+        );
+
+        double baseCalculo = Math.max(valorTransacao, valorVenal);
+        double imposto = baseCalculo * (percentual / 100);
+
+        JOptionPane.showMessageDialog(null, 
+            String.format("Base de cálculo: R$ %.2f%nImposto ITBI: R$ %.2f", baseCalculo, imposto)
+        );
+    }
+}
+
+
+Sistema de avaliacao
+import javax.swing.JOptionPane;
+
+public class SistemaAvaliacao {
+    public static void main(String[] args) {
+        double prova1 = Double.parseDouble(JOptionPane.showInputDialog("Nota da Prova 1:"));
+        double prova2 = Double.parseDouble(JOptionPane.showInputDialog("Nota da Prova 2:"));
+        double trabalho = Double.parseDouble(JOptionPane.showInputDialog("Nota do Trabalho:"));
+
+        double media = (prova1 + prova2 + trabalho) / 3;
+        String status = media >= 6 ? "Aprovado" : "Reprovado";
+
+        JOptionPane.showMessageDialog(null, String.format("Média: %.2f - %s", media, status));
+    }
+}
+
+
+Calculadora de Aposentadoria
+import java.util.Scanner;
+
+public class CalculadoraAposentadoria {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Informe sua idade: ");
+        int idade = sc.nextInt();
+
+        System.out.print("Informe seu sexo (M/F): ");
+        char sexo = sc.next().toUpperCase().charAt(0);
+
+        System.out.print("Informe seus anos de contribuição: ");
+        int contribuicao = sc.nextInt();
+
+        boolean podeAposentar = false;
+
+        if (sexo == 'M') {
+            podeAposentar = (idade >= 65) || (contribuicao >= 35);
+        } else if (sexo == 'F') {
+            podeAposentar = (idade >= 62) || (contribuicao >= 30);
+        }
+
+        if (podeAposentar) {
+            System.out.println(" Você já pode se aposentar!");
+        } else {
+            int faltamIdade = (sexo == 'M') ? 65 - idade : 62 - idade;
+            int faltamContrib = (sexo == 'M') ? 35 - contribuicao : 30 - contribuicao;
+            System.out.println(" Ainda não pode se aposentar.");
+            System.out.println("Faltam " + Math.max(faltamIdade, 0) + " anos de idade ou " + Math.max(faltamContrib, 0) + " anos de contribuição.");
+        }
+
+        sc.close();
+    }
+}
+
+
+Circuito de Resistencias
+import java.util.Scanner;
+
+public class CircuitoResistencias {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        double[] resistencias = new double[4];
+        double soma = 0, maior = 0, menor = Double.MAX_VALUE;
+
+        for (int i = 0; i < 4; i++) {
+            System.out.print("Digite o valor da resistência " + (i + 1) + ": ");
+            resistencias[i] = sc.nextDouble();
+            soma += resistencias[i];
+            if (resistencias[i] > maior) maior = resistencias[i];
+            if (resistencias[i] < menor) menor = resistencias[i];
+        }
+
+        System.out.println("Resistência equivalente (série): " + soma);
+        System.out.println("Maior resistência: " + maior);
+        System.out.println("Menor resistência: " + menor);
+
+        sc.close();
+    }
+}
+
+
+Sistema de Login
+import java.util.Scanner;
+
+public class SistemaLogin {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String usuarioCorreto = "java8";
+        String senhaCorreta = "java8";
+        int tentativas = 3;
+
+        while (tentativas > 0) {
+            System.out.print("Login: ");
+            String login = sc.nextLine();
+
+            System.out.print("Senha: ");
+            String senha = sc.nextLine();
+
+            if (login.equals(usuarioCorreto) && senha.equals(senhaCorreta)) {
+                System.out.println(" Acesso permitido! Bem-vindo.");
+                break;
+            } else {
+                tentativas--;
+                System.out.println(" Dados incorretos. Tentativas restantes: " + tentativas);
+            }
+        }
+
+        if (tentativas == 0) {
+            System.out.println(" Acesso bloqueado. Tente novamente mais tarde.");
+        }
+
+        sc.close();
+    }
+}
+
+
+Gerador de Tabuada
+import java.util.Scanner;
+
+public class GeradorTabuada {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Digite um número para ver sua tabuada: ");
+        int numero = sc.nextInt();
+
+        System.out.println("Tabuada do " + numero + ":");
+        for (int i = 1; i <= 10; i++) {
+            System.out.println(numero + " x " + i + " = " + (numero * i));
+        }
+
+        sc.close();
+    }
+}
